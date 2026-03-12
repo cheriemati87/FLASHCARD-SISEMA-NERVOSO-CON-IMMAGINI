@@ -8,29 +8,24 @@
 <style>
 
 body{
-font-family: Arial, sans-serif;
+font-family:Arial;
 background:#f4f6f8;
-margin:0;
 display:flex;
-flex-direction:column;
-align-items:center;
 justify-content:center;
+align-items:center;
 height:100vh;
+margin:0;
 }
 
 .container{
 display:flex;
 align-items:center;
-justify-content:center;
-width:100%;
-max-width:900px;
 }
 
 .arrow{
 font-size:40px;
 cursor:pointer;
 padding:20px;
-user-select:none;
 }
 
 .flashcard{
@@ -43,7 +38,7 @@ perspective:1000px;
 position:relative;
 width:100%;
 height:100%;
-transition:transform 0.7s;
+transition:transform 0.6s;
 transform-style:preserve-3d;
 }
 
@@ -56,9 +51,9 @@ position:absolute;
 width:100%;
 height:100%;
 backface-visibility:hidden;
-border-radius:12px;
-box-shadow:0 4px 15px rgba(0,0,0,0.15);
 background:white;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
 padding:20px;
 box-sizing:border-box;
 display:flex;
@@ -73,8 +68,7 @@ transform:rotateY(180deg);
 .card img{
 width:100%;
 height:250px;
-object-fit:cover;
-border-radius:10px;
+object-fit:contain;
 }
 
 .question{
@@ -84,11 +78,9 @@ margin-top:10px;
 }
 
 .answers button{
-display:block;
 width:100%;
 margin:6px 0;
 padding:10px;
-font-size:16px;
 border:none;
 border-radius:6px;
 cursor:pointer;
@@ -113,25 +105,12 @@ margin-top:10px;
 }
 
 .controls button{
-padding:8px 14px;
+padding:8px 12px;
 border:none;
 border-radius:6px;
 background:#3f51b5;
 color:white;
 cursor:pointer;
-}
-
-@media(max-width:600px){
-
-.flashcard{
-width:90vw;
-height:70vh;
-}
-
-.arrow{
-font-size:30px;
-}
-
 }
 
 </style>
@@ -148,7 +127,7 @@ font-size:30px;
 
 <div class="card front">
 <img id="image">
-<div class="question" id="question"></div>
+<div id="question" class="question"></div>
 </div>
 
 <div class="card back">
@@ -174,14 +153,14 @@ font-size:30px;
 const flashcards=[
 
 {
-img:"1 CERVELLO",
+img:"1 CERVELLO.jpg",
 q:"Quale organo è mostrato nell’immagine?",
 answers:["Cuore","Cervello","Polmone","Fegato"],
 correct:1
 },
 
 {
-img:"2 CERVELLO",
+img:"2 CERVELLO.jpg",
 q:"Qual è la funzione principale dell’organo mostrato nell’immagine?",
 answers:[
 "Pompare il sangue",
@@ -192,7 +171,7 @@ correct:1
 },
 
 {
-img:"3 NEURONE",
+img:"3 NEURONE.png",
 q:"Come si chiama la cellula rappresentata?",
 answers:[
 "Globulo rosso",
@@ -203,7 +182,7 @@ correct:2
 },
 
 {
-img:"4 MIDOLLO SPINALE",
+img:"4 MIDOLLO SPINALE.jpg",
 q:"Quale struttura è indicata nell’immagine?",
 answers:[
 "Midollo spinale",
@@ -214,7 +193,7 @@ correct:0
 },
 
 {
-img:"5 SISTEMA NERVOSO",
+img:"5 SISTEMA NERVOSO.png",
 q:"Che cosa mostra questa immagine?",
 answers:[
 "Sistema nervoso",
@@ -225,7 +204,7 @@ correct:0
 },
 
 {
-img:"6 CERVELLETTO",
+img:"6 CERVELLETTO.jpg",
 q:"Quale parte del cervello controlla equilibrio e coordinazione?",
 answers:[
 "Cervelletto",
@@ -236,7 +215,7 @@ correct:0
 },
 
 {
-img:"7 ARCO RIFLESSO",
+img:"7 ARCO RIFLESSO.jpg",
 q:"Che cosa rappresenta la situazione mostrata?",
 answers:[
 "Digestione",
@@ -247,7 +226,7 @@ correct:1
 },
 
 {
-img:"8 PERCORSO STIMOLO-RISPOSTA",
+img:"8 PERCORSO STIMOLO-RISPOSTA.jpg",
 q:"Che cosa rappresenta lo schema?",
 answers:[
 "Percorso dell’aria",
@@ -258,7 +237,7 @@ correct:2
 },
 
 {
-img:"9 SISTEMA NERVOSO PERIFERICO",
+img:"9 SISTEMA NERVOSO PERIFERICO.png",
 q:"A quale parte del sistema nervoso appartengono i nervi mostrati in blu?",
 answers:[
 "Sistema nervoso periferico",
@@ -269,7 +248,7 @@ correct:0
 },
 
 {
-img:"10 ORGANI DI SENSO",
+img:"10 ORGANI DI SENSO.jpg",
 q:"Che cosa mostrano le strutture nell’immagine?",
 answers:[
 "Gli organi del sistema digestivo",
@@ -280,7 +259,7 @@ correct:1
 },
 
 {
-img:"11 SISTEMA NERVOSO CENTRALE",
+img:"11 SISTEMA NERVOSO CENTRALE.jpg",
 q:"Quale parte del sistema nervoso è mostrata nell’immagine?",
 answers:[
 "Sistema nervoso periferico",
@@ -291,7 +270,7 @@ correct:1
 },
 
 {
-img:"12 NERVI E MUSCOLI",
+img:"12 NERVI E MUSCOLI.jpg",
 q:"Che cosa mostrano i nervi collegati ai muscoli?",
 answers:[
 "Il movimento del sangue",
@@ -302,7 +281,7 @@ correct:1
 },
 
 {
-img:"13 SINAPSI CERCHIATA",
+img:"13 ASSONE.png",
 q:"Che cosa rappresenta la struttura mostrata all’estremità dell’assone?",
 answers:[
 "Sinapsi",
@@ -313,7 +292,7 @@ correct:0
 },
 
 {
-img:"14 ASSONE CERCHIATO",
+img:"14 SINAPSI CERCHIATA.jpg",
 q:"Come si chiama la parte del neurone cerchiata?",
 answers:[
 "Assone",
@@ -324,7 +303,7 @@ correct:0
 },
 
 {
-img:"15 CORPO CELLULARE CERCHIATO",
+img:"15 CORPO CELLULARE CERCHIATO.png",
 q:"Come si chiama la parte del neurone che contiene il nucleo?",
 answers:[
 "Assone",
@@ -335,7 +314,7 @@ correct:1
 },
 
 {
-img:"16 NEURONE SENSORIALE",
+img:"16 NEURONE SENSORIALE.png",
 q:"Qual è il ruolo del neurone sensoriale?",
 answers:[
 "Porta informazioni dagli organi di senso al cervello",
@@ -360,7 +339,7 @@ flashcard.classList.remove("flipped");
 
 let card=flashcards[current];
 
-image.src=`https://via.placeholder.com/600x300?text=${encodeURIComponent(card.img)}`;
+image.src=card.img;
 
 question.innerText=card.q;
 
@@ -369,6 +348,7 @@ answersDiv.innerHTML="";
 card.answers.forEach((ans,i)=>{
 
 let btn=document.createElement("button");
+
 btn.innerText=ans;
 
 btn.onclick=()=>{
@@ -420,9 +400,8 @@ flashcard.classList.toggle("flipped");
 
 function speak(){
 
-let text=flashcards[current].q;
+let msg=new SpeechSynthesisUtterance(flashcards[current].q);
 
-let msg=new SpeechSynthesisUtterance(text);
 msg.lang="it-IT";
 
 speechSynthesis.speak(msg);
